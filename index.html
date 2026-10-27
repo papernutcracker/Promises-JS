@@ -10,12 +10,10 @@
   <div id="output"></div>
 
   <script>
-    // Допоміжна функція для виводу тексту на екран
     const out = document.getElementById('output');
     const print = (text) => out.innerHTML += text + '<br><br>';
 
-    // --- ЗАВДАННЯ 1 ---
-    print('<b>--- Завдання 1 (Callbacks) ---</b>');
+    print('<b>(Callbacks)</b>');
     function processArray(array, callback) {
       const result = [];
       for (let i = 0; i < array.length; i++) result.push(callback(array[i]));
@@ -24,9 +22,7 @@
     print('Подвоєні числа: ' + processArray([1, 2, 3, 4, 5], el => el * 2));
     print('Реверс рядків: ' + processArray(["hello", "world"], el => el.split('').reverse().join('')));
 
-
-    // --- ЗАВДАННЯ 2 ---
-    print('<b>--- Завдання 2 (Filter) ---</b>');
+    print('<b>(Filter)</b>');
     function filterArray(array, callback) {
       const result = [];
       for (let i = 0; i < array.length; i++) {
@@ -37,35 +33,28 @@
     print('Парні числа: ' + filterArray([1, 2, 3, 4, 5], num => num % 2 === 0));
     print('Короткі слова: ' + filterArray(["cat", "elephant", "dog", "bird"], word => word.length <= 4));
 
+    print('<b>(Асинхронні - зачекайте...)</b>');
 
-    // --- ЗАВДАННЯ 3 та 4 (Асинхронні) ---
-    print('<b>--- Завдання 3 та 4 (Асинхронні - зачекайте...) ---</b>');
-
-    // Функції з таймерами (Promises)
     const washDishes = () => new Promise(res => setTimeout(() => res("Посуд вимито (через 2с)"), 2000));
     const cleanRoom = () => new Promise(res => setTimeout(() => res("Кімнату прибрано (через 4с)"), 4000));
     const makeDinner = () => new Promise(res => setTimeout(() => res("Вечеря приготована (через 7с)"), 7000));
 
-    // Запускаємо ланцюжок 3 завдання
     washDishes()
       .then(msg => { print(msg); return cleanRoom(); })
       .then(msg => { print(msg); return makeDinner(); })
       .then(msg => { print(msg); });
 
-    // Функція сортування 4 завдання
     function sortArray(array) {
       return new Promise((resolve, reject) => {
         if (array.length === 0) reject("Масив порожній (миттєва помилка)");
         else setTimeout(() => resolve("Відсортовано через 2с: " + [...array].sort((a, b) => a - b)), 2000);
       });
     }
-
-    // Запускаємо 4 завдання
     sortArray([10, 2, 5, 1, 9])
       .then(res => print(res))
       .catch(err => print(err));
 
-    sortArray([]) // Перевірка порожнього масиву
+    sortArray([]) 
       .then(res => print(res))
       .catch(err => print(err));
 
