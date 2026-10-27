@@ -3,61 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <title>Демонстрація JS</title>
+  <script src="script.js" defer></script>
 </head>
 <body style="font-family: monospace; font-size: 16px; padding: 20px;">
 
   <h2>Результати виконання:</h2>
-  <div id="output"></div>
+  
+  <b>--- Завдання 1 (Callbacks) ---</b>
+  <div id="out1"></div><br>
 
-  <script>
-    const out = document.getElementById('output');
-    const print = (text) => out.innerHTML += text + '<br><br>';
+  <b>--- Завдання 2 (Filter) ---</b>
+  <div id="out2"></div><br>
 
-    print('<b>(Callbacks)</b>');
-    function processArray(array, callback) {
-      const result = [];
-      for (let i = 0; i < array.length; i++) result.push(callback(array[i]));
-      return result;
-    }
-    print('Подвоєні числа: ' + processArray([1, 2, 3, 4, 5], el => el * 2));
-    print('Реверс рядків: ' + processArray(["hello", "world"], el => el.split('').reverse().join('')));
+  <b>--- Завдання 3 (Ланцюжок Promises) ---</b>
+  <div id="out3"></div><br>
 
-    print('<b>(Filter)</b>');
-    function filterArray(array, callback) {
-      const result = [];
-      for (let i = 0; i < array.length; i++) {
-        if (callback(array[i])) result.push(array[i]);
-      }
-      return result;
-    }
-    print('Парні числа: ' + filterArray([1, 2, 3, 4, 5], num => num % 2 === 0));
-    print('Короткі слова: ' + filterArray(["cat", "elephant", "dog", "bird"], word => word.length <= 4));
+  <b>--- Завдання 4 (Promise Сортування) ---</b>
+  <div id="out4"></div><br>
+  
+  <b>--- Завдання 5 та 6 (Async/Await) ---</b>
+  <div id="out56"></div><br>
 
-    print('<b>(Асинхронні - зачекайте...)</b>');
-
-    const washDishes = () => new Promise(res => setTimeout(() => res("Посуд вимито (через 2с)"), 2000));
-    const cleanRoom = () => new Promise(res => setTimeout(() => res("Кімнату прибрано (через 4с)"), 4000));
-    const makeDinner = () => new Promise(res => setTimeout(() => res("Вечеря приготована (через 7с)"), 7000));
-
-    washDishes()
-      .then(msg => { print(msg); return cleanRoom(); })
-      .then(msg => { print(msg); return makeDinner(); })
-      .then(msg => { print(msg); });
-
-    function sortArray(array) {
-      return new Promise((resolve, reject) => {
-        if (array.length === 0) reject("Масив порожній (миттєва помилка)");
-        else setTimeout(() => resolve("Відсортовано через 2с: " + [...array].sort((a, b) => a - b)), 2000);
-      });
-    }
-    sortArray([10, 2, 5, 1, 9])
-      .then(res => print(res))
-      .catch(err => print(err));
-
-    sortArray([]) 
-      .then(res => print(res))
-      .catch(err => print(err));
-
-  </script>
 </body>
 </html>
